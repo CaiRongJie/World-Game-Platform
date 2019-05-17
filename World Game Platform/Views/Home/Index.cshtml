@@ -1,94 +1,323 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<h2>WELCOME!</h2>
+<h1>World Game Platform</h1>
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img src="~/images/banner1.svg" alt="ASP.NET" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how to build ASP.NET apps that can run anywhere.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/banner2.svg" alt="Visual Studio" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    There are powerful new features in Visual Studio for building modern web apps.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/banner3.svg" alt="Microsoft Azure" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
+<!DOCTYPE html>
 
-<div class="row">
-    <div class="col-md-3">
-        <h2>Application uses</h2>
-        <ul>
-            <li>Sample pages using ASP.NET Core MVC</li>
-            <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-        </ul>
+<html>
+
+<head>
+
+    <title>Slide</title>
+
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        .clear {
+            *zoom: 1;
+        }
+
+            .clear:after {
+                visibility: none;
+                content: "";
+                display: block;
+                clear: both;
+                height: 0;
+            }
+
+        #wrap {
+            width: 1100px;
+            height: 600px;
+            margin: 0 auto;
+            position: relative;
+            background: pink;
+            overflow: hidden;
+        }
+
+        #inner {
+            width: 1000%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+            #inner img {
+                width: 10%;
+                height: 100%;
+                float: left;
+            }
+
+        .paganation {
+            width: 100%;
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+        }
+
+            .paganation span {
+                padding: 5px 8px;
+                background: #F2F2F2;
+                color: red;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            .paganation .selected {
+                background: red;
+                color: white;
+            }
+
+        .arrow {
+            position: absolute;
+            top: 0;
+            width: 30px;
+            height: 286px;
+            line-height: 286px;
+            text-align: center;
+            color: red;
+            cursor: pointer;
+        }
+
+        #right {
+            right: 0;
+        }
+
+        .arrow:hover {
+            background: rgba(0,0,0,0.5);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrap" >
+
+        <div id="inner" class="clear">
+
+            <img src="/images/call.jpg">
+
+            <img src="/images/timg.jpg">
+
+            <img src="/images/timg0G3X46ZG.jpg">
+
+            <img src="~/images/timg37XFLNI0.jpg" />
+
+            <img src="~/images/timg968HOU1C.jpg" />
+
+            <img src="~/images/timgH3Z7MVXU.jpg" />
+        </div>
+
+        <div class="paganation" id="paganation">
+
+            <span class="selected">1</span>
+
+            <span>2</span>
+
+            <span>3</span>
+
+            <span>4</span>
+
+            <span>5</span>
+
+            <span>6</span>
+
+            
+
+        </div>
+
+        <div id="left" class="arrow"><</div>
+
+        <div id="right" class="arrow">></div>
+
     </div>
-    <div class="col-md-3">
-        <h2>How to</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Overview</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Run &amp; Deploy</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
-        </ul>
-    </div>
-</div>
+
+</body>
+
+<script type="text/javascript">
+
+    var wrap = document.getElementById("wrap");
+
+    var inner = document.getElementById("inner");
+
+    var spanList = document.getElementById("paganation").getElementsByTagName("span");
+
+    var left = document.getElementById("left");
+
+    var right = document.getElementById("right");
+
+
+
+    var clickFlag = true;//设置左右切换标记位防止连续按
+
+    var time;
+
+    var index = 0;//记录每次滑动图片的下标
+
+    var Distance = wrap.offsetWidth;//获得展示区的宽度，即图片的宽度
+
+    function AutoGo() {
+
+        var start = inner.offsetLeft;//获得相对于父元素的left，这里就是对与wrap的left
+
+        var end = index * Distance * (-1);
+
+        var change = end - start;//通过这三个变量来控制图片向左向右，change的+—来控制左右移动
+
+
+
+        var timer;//用计时器为图片添加动态效果
+
+        var t = 0;
+
+        var maxT = 30;
+
+        clear();
+
+        if (index == spanList.length) {//index到最后一张图片时
+
+            spanList[0].className = "selected";
+
+        } else {
+
+            spanList[index].className = "selected";
+
+        }
+
+        clearInterval(timer);
+
+        timer = setInterval(function () {
+
+            t++;
+
+            if (t >= maxT) {
+
+                clearInterval(timer);
+
+                clickFlag = true;
+
+            }
+
+            inner.style.left = change / maxT * t + start + "px";
+
+            if (index == spanList.length && t >= maxT) {
+
+                inner.style.left = 0;
+
+                index = 0;
+
+                //当图片到最后一张时把它瞬间切换回第一张，由于都是同一张图片不会影响效果
+
+            }
+
+        }, 17);//每17毫秒让块移动change/maxT×t
+
+    }
+
+    function forward() {
+
+        index++;
+
+        if (index > spanList.length) {
+
+            index = 0;
+
+        }
+
+        AutoGo();
+
+    }
+
+    function backward() {
+
+        index--;
+
+        //当图片下标到第一张让它返回倒数第二张，倒数第一张和第一张是一样的
+
+        //left值要变到最后一张才不影响过渡效果
+
+        if (index < 0) {
+
+            index = spanList.length - 1;
+
+            inner.style.left = (index + 1) * Distance * (-1) + "px";
+
+        }
+
+        AutoGo();
+
+    }
+
+    time = setInterval(forward, 3000);
+
+    wrap.onmouseover = function () {
+
+        clearInterval(time);
+
+    }
+
+    wrap.onmouseout = function () {
+
+        time = setInterval(forward, 3000);
+
+    }
+
+    //遍历每个按钮让其切换到对应图片
+
+    for (var i = 0; i < spanList.length; i++) {
+
+        spanList[i].onclick = function () {
+
+            index = this.innerText - 1;
+
+            AutoGo();
+
+        }
+
+    }
+
+    left.onclick = function () {
+
+        if (clickFlag) {
+
+            backward();
+
+        }
+
+        clickFlag = false;
+
+    }
+
+    right.onclick = function () {
+
+        if (clickFlag) {
+
+            forward();
+
+        }
+
+        clickFlag = false;
+
+    }
+
+    function clear() {
+
+        for (var i = 0; i < spanList.length; i++) {
+
+            spanList[i].className = "";
+
+        }
+
+    }
+
+</script>
+
+</html>
