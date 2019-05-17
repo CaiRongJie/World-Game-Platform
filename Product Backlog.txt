@@ -1,0 +1,19 @@
+Title:search the game
+User:a customer
+Goal:need convenient to find the game
+Why:So that can keep the guest
+--------------------------------------------
+Title:recommend the game
+User:As a game recommended member
+Goal:Recommended member need to provide all kind of game to the guest
+Why:That can generate user interest to continue to use platform
+--------------------------------------------
+Title:collect the information
+User:Webmaster
+Gaol:I need to collect guest comments
+Why:So that we can know what is good and what is user think bad
+--------------------------------------------
+Title:contact way
+User:As a customer
+Gaol:I need to call the merchants to reflect the situation
+Why:Customer can talk with us about what's matter for our platform.
