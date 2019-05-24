@@ -1,0 +1,15 @@
+The minutes of the meeting
+Monday
+Our group discussed about the future project and confirmed the position of project manager in our group.
+Tuesday
+Our team added the framework for our project
+Wednesday
+Our group added a sliding form
+Thursday
+Our group added the effect of flowing pictures
+Friday
+Our team refined the data in the database
+Saturday
+We've got a preview of what we're going to do next week
+Sunday
+We summed up the project mistakes of the week
