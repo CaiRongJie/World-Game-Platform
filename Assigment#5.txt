@@ -1,5 +1,5 @@
 Name of team:World Game Platform
 Name of the GitHub project:Add game data
 Github username of the GitHub repository:World-Game-Platform
-Name of the Product Owner:Qianru Li
-Name of the Scrum Master:Cheng Luo
+Name of the Product Owner for Sprint#2:Qianru Li
+Name of the Scrum Master for Sprint#2:Cheng Luo
