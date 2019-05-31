@@ -12,26 +12,47 @@ namespace World_Game_Platform.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return base.View();
         }
 
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
 
-            return View();
+            return base.View();
         }
 
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
 
-            return View();
+            return base.View();
+        }
+        public ActionResult Steam()
+        {
+            return base.View();
+        }
+     public ActionResult Origin()
+        {
+            return base.View();
+        }
+        public ActionResult uplay()
+        {
+            return base.View();
+        }
+        public ActionResult epic()
+        {
+            return base.View();
+        }
+
+        private ActionResult View()
+        {
+            throw new NotImplementedException();
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            return base.View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -41,13 +62,13 @@ namespace World_Game_Platform.Controllers
         }
         public IActionResult Search()
         {
-            return View();
+            return base.View();
         }
         [HttpPost]
         public IActionResult Search(string query)
         {
             var q = query;
-            return View();
+            return base.View();
         }
     }
 }
