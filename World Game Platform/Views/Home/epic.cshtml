@@ -1,0 +1,406 @@
+﻿@{
+    ViewData["Title"] = "Steam";
+}
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Slide</title>
+
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        .clear {
+            *zoom: 1;
+        }
+
+            .clear:after {
+                visibility: none;
+                content: "";
+                display: block;
+                clear: both;
+                height: 0;
+            }
+
+        #wrap {
+            width: 1100px;
+            height: 600px;
+            margin: 0 auto;
+            position: relative;
+            background: pink;
+            overflow: hidden;
+        }
+
+        #inner {
+            width: 1000%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+            #inner img {
+                width: 10%;
+                height: 100%;
+                float: left;
+            }
+
+        .paganation {
+            width: 100%;
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+        }
+
+            .paganation span {
+                padding: 5px 8px;
+                background: #F2F2F2;
+                color: red;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            .paganation .selected {
+                background: red;
+                color: white;
+            }
+
+        .arrow {
+            position: absolute;
+            top: 0;
+            width: 30px;
+            height: 600px;
+            line-height: 600px;
+            text-align: center;
+            color: red;
+            cursor: pointer;
+        }
+
+        #right {
+            right: 0;
+        }
+
+        .arrow:hover {
+            background: rgba(0,0,0,0.5);
+        }
+        /* 下拉按钮样式 */
+        .dropbtn {
+            background-color: #000000;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 容器 <div> - 需要定位下拉内容 */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* 下拉内容 (默认隐藏) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        }
+
+            /* 下拉菜单的链接 */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                /* 鼠标移上去后修改下拉菜单链接颜色 */
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1
+                }
+
+        /* 在鼠标移上去后显示下拉菜单 */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 当下拉内容显示后修改下拉按钮的背景颜色 */
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrap">
+
+        <div id="inner" class="clear">
+
+            <img src="~/images/ff.jpg">
+
+            <img src="~/images/w.jpg">
+
+            <img src="~/images/js.jpg">
+
+            <img src="~/images/d.jpg">
+
+
+
+        </div>
+
+        <div class="paganation" id="paganation">
+
+            <span class="selected">1</span>
+
+            <span>2</span>
+
+            <span>3</span>
+
+            <span>4</span>
+
+
+
+
+        </div>
+
+        <div id="left" class="arrow"><</div>
+
+        <div id="right" class="arrow">></div>
+
+    </div>
+
+</body>
+
+<script type="text/javascript">
+
+    var wrap = document.getElementById("wrap");
+
+    var inner = document.getElementById("inner");
+
+    var spanList = document.getElementById("paganation").getElementsByTagName("span");
+
+    var left = document.getElementById("left");
+
+    var right = document.getElementById("right");
+
+
+
+    var clickFlag = true;//设置左右切换标记位防止连续按
+
+    var time;
+
+    var index = 0;//记录每次滑动图片的下标
+
+    var Distance = wrap.offsetWidth;//获得展示区的宽度，即图片的宽度
+
+    function AutoGo() {
+
+        var start = inner.offsetLeft;//获得相对于父元素的left，这里就是对与wrap的left
+
+        var end = index * Distance * (-1);
+
+        var change = end - start;//通过这三个变量来控制图片向左向右，change的+—来控制左右移动
+
+
+
+        var timer;//用计时器为图片添加动态效果
+
+        var t = 0;
+
+        var maxT = 30;
+
+        clear();
+
+        if (index == spanList.length) {//index到最后一张图片时
+
+            spanList[0].className = "selected";
+
+        } else {
+
+            spanList[index].className = "selected";
+
+        }
+
+        clearInterval(timer);
+
+        timer = setInterval(function () {
+
+            t++;
+
+            if (t >= maxT) {
+
+                clearInterval(timer);
+
+                clickFlag = true;
+
+            }
+
+            inner.style.left = change / maxT * t + start + "px";
+
+            if (index == spanList.length && t >= maxT) {
+
+                inner.style.left = 0;
+
+                index = 0;
+
+                //当图片到最后一张时把它瞬间切换回第一张，由于都是同一张图片不会影响效果
+
+            }
+
+        }, 17);//每17毫秒让块移动change/maxT×t
+
+    }
+
+    function forward() {
+
+        index++;
+
+        if (index > spanList.length) {
+
+            index = 0;
+
+        }
+
+        AutoGo();
+
+    }
+
+    function backward() {
+
+        index--;
+
+        //当图片下标到第一张让它返回倒数第二张，倒数第一张和第一张是一样的
+
+        //left值要变到最后一张才不影响过渡效果
+
+        if (index < 0) {
+
+            index = spanList.length - 1;
+
+            inner.style.left = (index + 1) * Distance * (-1) + "px";
+
+        }
+
+        AutoGo();
+
+    }
+
+    time = setInterval(forward, 3000);
+
+    wrap.onmouseover = function () {
+
+        clearInterval(time);
+
+    }
+
+    wrap.onmouseout = function () {
+
+        time = setInterval(forward, 3000);
+
+    }
+
+    //遍历每个按钮让其切换到对应图片
+
+    for (var i = 0; i < spanList.length; i++) {
+
+        spanList[i].onclick = function () {
+
+            index = this.innerText - 1;
+
+            AutoGo();
+
+        }
+
+    }
+
+    left.onclick = function () {
+
+        if (clickFlag) {
+
+            backward();
+
+        }
+
+        clickFlag = false;
+
+    }
+
+    right.onclick = function () {
+
+        if (clickFlag) {
+
+            forward();
+
+        }
+
+        clickFlag = false;
+
+    }
+
+    function clear() {
+
+        for (var i = 0; i < spanList.length; i++) {
+
+            spanList[i].className = "";
+
+        }
+
+    }
+
+</script>
+
+</html>
+
+<font style="text-align:center">
+    <h1>
+        Epic
+    </h1>
+    </font>
+<font color="red" style="text-align:center"><p> * Click on the game name to jump to the official website to buy! *</p></font>
+    <h1><a href="https://baike.baidu.com/item/无主之地3/19465135?fr=aladdin">1.Wind traveler editor discussion</a></h1>
+    <font size="4px">
+        <p>
+            Wind traveler editor discussion
+            The wind is traveler (wind ノ brigade ビ ト, journey) is created by Thatgamecompany PSN game, Chinese jenova Chen to participate in supervision, of the design is based on jenova Chen has done two other game, called "cloud" and "flow" respectively.It was officially released on March 15, 2012, and is available on PSN, PS3 and PS4 platforms [1].
+            In traveler in the wind, the player plays an unknown traveler who begins his adventure from the desert, climbing over numerous mountains and crossing numerous Bridges, constantly seeking and awakening the inscriptions encountered in his journey, so as to strengthen his flight ability. The end of the journey is the distant mountain [1-2].
+        <p>
+            </font>
+            <h1><a href="http://callofthewild.thehunter.com/en">2.No man's land 3</a></h1>
+            <font size="4px">
+                <p>
+                    No man's land 3
+                    Borderlands 3 is an rpg-style FPS shooter game developed by Gearbox Software and distributed by 2K Games. It is an orthodox sequel to 2012's Borderlands 2.[1]
+                    No man's land 3 was officially released on March 29, 2019, with the release of the first trailer for the game.[2]
+                    The game will be released on September 13, 2019 and will be available on PS4, Xbox One and PC platforms, with Chinese voice and subtitles
+                </p></font>
+                <h1><a href="https://baijiahao.baidu.com/s?id=1620066416021665777&wfr=spider&for=pc">3.Edit world war z</a></h1>
+                <font size="4px">
+                    <p>
+                        Edit world war z (2019 action shooter game)
+                        World zombie war is a four-player co-op game produced and distributed by Saber Interactive that revolves around unique survivors around the world, including New York, Moscow and Jerusalem.Players can strategically use traps, obstacles, and surroundings to survive, and use multiple weapons to deliver powerful attacks against waves of zombies.[1]
+                    </p></font>
+                    <h1><a href="http://www.yxdown.com/gonglue/383898.html">4.Subway: leaving</a></h1>
+                    <font size="4px">
+                        <p>
+                            Subway: leaving
+                            Metro Exodus is a first-person shooter created by 4A Games and released by Deep Silver. It is the third installment in the subway franchise and a sequel to Metro 2033 and Metro: the last light.[1]
+                            The PC version was originally planned to be released in Steam mall, but due to the proportion between Epic mall and Steam, the publisher decided to have an exclusive year in Epic mall, and the Steam version will be released on February 15, 2020.[2]
+                            It will be released on February 15, 2019 on PC, PS4, Xbox One and other platforms.
+                        </p></font>
+                        
+                            

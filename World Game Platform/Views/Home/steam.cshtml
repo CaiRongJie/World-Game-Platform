@@ -1,0 +1,442 @@
+﻿@{
+    ViewData["Title"] = "Steam";
+}
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Slide</title>
+
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        .clear {
+            *zoom: 1;
+        }
+     
+            .clear:after {
+                visibility: none;
+                content: "";
+                display: block;
+                clear: both;
+                height: 0;
+            }
+
+        #wrap {
+            width: 1100px;
+            height: 600px;
+            margin: 0 auto;
+            position: relative;
+            background: pink;
+            overflow: hidden;
+        }
+
+        #inner {
+            width: 1000%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+            #inner img {
+                width: 10%;
+                height: 100%;
+                float: left;
+            }
+     .paganation {
+            width: 100%;
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+        }
+
+            .paganation span {
+                padding: 5px 8px;
+                background: #F2F2F2;
+                color: red;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            .paganation .selected {
+                background: red;
+                color: white;
+            }
+
+        .arrow {
+            position: absolute;
+            top: 0;
+            width: 30px;
+            height: 600px;
+            line-height: 600px;
+            text-align: center;
+            color: red;
+            cursor: pointer;
+        }
+
+        #right {
+            right: 0;
+        }
+
+        .arrow:hover {
+            background: rgba(0,0,0,0.5);
+        }
+        /* 下拉按钮样式 */
+        .dropbtn {
+            background-color: #000000;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 容器 <div> - 需要定位下拉内容 */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* 下拉内容 (默认隐藏) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        }
+
+            /* 下拉菜单的链接 */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                /* 鼠标移上去后修改下拉菜单链接颜色 */
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1
+                }
+
+        /* 在鼠标移上去后显示下拉菜单 */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 当下拉内容显示后修改下拉按钮的背景颜色 */
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrap">
+
+        <div id="inner" class="clear">
+
+            <img src="/images/1.jpg">
+
+            <img src="/images/2.jpg">
+
+            <img src="/images/3.jpg">
+
+            <img src="~/images/4.jpg" />
+
+            <img src="~/images/5.jpg" />
+
+            <img src="~/images/6.jpg" />
+
+            <img src="~/images/70.jpg" />
+
+        </div>
+
+        <div class="paganation" id="paganation">
+
+            <span class="selected">1</span>
+
+            <span>2</span>
+
+            <span>3</span>
+
+            <span>4</span>
+
+            <span>5</span>
+
+            <span>6</span>
+
+
+
+        </div>
+
+        <div id="left" class="arrow"><</div>
+
+        <div id="right" class="arrow">></div>
+
+    </div>
+
+</body>
+
+<script type="text/javascript">
+
+    var wrap = document.getElementById("wrap");
+
+    var inner = document.getElementById("inner");
+
+    var spanList = document.getElementById("paganation").getElementsByTagName("span");
+
+    var left = document.getElementById("left");
+
+    var right = document.getElementById("right");
+
+
+
+    var clickFlag = true;//设置左右切换标记位防止连续按
+
+    var time;
+
+    var index = 0;//记录每次滑动图片的下标
+
+    var Distance = wrap.offsetWidth;//获得展示区的宽度，即图片的宽度
+
+    function AutoGo() {
+
+        var start = inner.offsetLeft;//获得相对于父元素的left，这里就是对与wrap的left
+
+        var end = index * Distance * (-1);
+
+        var change = end - start;//通过这三个变量来控制图片向左向右，change的+—来控制左右移动
+
+
+
+        var timer;//用计时器为图片添加动态效果
+
+        var t = 0;
+
+        var maxT = 30;
+
+        clear();
+
+        if (index == spanList.length) {//index到最后一张图片时
+
+            spanList[0].className = "selected";
+
+        } else {
+
+            spanList[index].className = "selected";
+
+        }
+
+        clearInterval(timer);
+
+        timer = setInterval(function () {
+
+            t++;
+
+            if (t >= maxT) {
+
+                clearInterval(timer);
+
+                clickFlag = true;
+
+            }
+
+            inner.style.left = change / maxT * t + start + "px";
+
+            if (index == spanList.length && t >= maxT) {
+
+                inner.style.left = 0;
+
+                index = 0;
+
+                //当图片到最后一张时把它瞬间切换回第一张，由于都是同一张图片不会影响效果
+
+            }
+
+        }, 17);//每17毫秒让块移动change/maxT×t
+
+    }
+
+    function forward() {
+
+        index++;
+
+        if (index > spanList.length) {
+
+            index = 0;
+
+        }
+
+        AutoGo();
+
+    }
+
+    function backward() {
+
+        index--;
+
+        //当图片下标到第一张让它返回倒数第二张，倒数第一张和第一张是一样的
+
+        //left值要变到最后一张才不影响过渡效果
+
+        if (index < 0) {
+
+            index = spanList.length - 1;
+
+            inner.style.left = (index + 1) * Distance * (-1) + "px";
+
+        }
+
+        AutoGo();
+
+    }
+
+    time = setInterval(forward, 3000);
+
+    wrap.onmouseover = function () {
+
+        clearInterval(time);
+
+    }
+
+    wrap.onmouseout = function () {
+
+        time = setInterval(forward, 3000);
+
+    }
+
+    //遍历每个按钮让其切换到对应图片
+
+    for (var i = 0; i < spanList.length; i++) {
+
+        spanList[i].onclick = function () {
+
+            index = this.innerText - 1;
+
+            AutoGo();
+
+        }
+
+    }
+
+    left.onclick = function () {
+
+        if (clickFlag) {
+
+            backward();
+
+        }
+
+        clickFlag = false;
+
+    }
+
+    right.onclick = function () {
+
+        if (clickFlag) {
+
+            forward();
+
+        }
+
+        clickFlag = false;
+
+    }
+
+    function clear() {
+
+        for (var i = 0; i < spanList.length; i++) {
+
+            spanList[i].className = "";
+
+        }
+
+    }
+
+</script>
+
+</html>
+
+
+
+<font style="text-align:center">
+    <h1>
+        Steam
+    </h1></font>
+    <font color="red" style="text-align:center"><p> * Click on the game name to jump to the official website to buy! *</p></font>
+    <h1><a href="https://store.steampowered.com/">1.Smite</a></h1>
+
+    <font size="4px">
+        <p>
+            "Holocaust of God" is a 3D team competition game based on Unreal 3 (Unreal 3) game engine. It is developed by Hi-Rez Studio of the United States and global agent of Tencent. On October 31, 2013, the game opened the first test of the national service and was publicly tested in the United States on March 25, 2014. On January 20, 2018, the national service was incorporated into the global operating system. [1-4]
+            "God of Holocaust" provides multi-mode battleplay in the background of the gods, combining the elements of MMORPG and FPS games in operation, highlighting the fast and fast pace of the battle, emphasizing personal operation and teamwork response, providing more operations for players. Pursuit and fun. [2-3]
+
+            Chinese name
+            Smite
+            Original name
+            SMITE
+            game type
+            MOBA
+            gaming platform
+            PC
+            Switch [5]
+            gaming platform
+            PS4
+            XboxOne
+            Developer
+            Hi-Rez Studios
+            issue date
+            March 25, 2014
+            Game screen
+            3D
+            Game Engine
+            Unreal 3
+        <p>
+    </font>
+    <h1><a href="https://store.steampowered.com/">2.Hunter: Call of the Wild</a></h1>
+    <font size="4px">
+        <p>
+            The game provides players with a beautiful, open and vibrant natural world, creating an immersive personal hunting experience. From majestic wild deer to awesome bison, from countless birds to insects, the entire real natural ecosystem will be in front of the players.
+            In the game, players can use bows, rifles, shotguns and various weapons, and can also use the props to gather animals together for hunting. In addition, the game will also include the elements of the hunting license, players need to have a corresponding license to hunt specific prey, and can also buy and sell. [2]
+            There are 50 square miles of natural areas in the game. In addition to the single player mode, the game supports up to 8 people online.
+        </p>
+    </font>
+    <h1><a href="https://store.steampowered.com/">3.Suqad</a></h1>
+    <font size="4px">
+        <p>
+            What is SQuAD?
+            Stanford Question Answering Dataset (SQuAD) is a reading comprehension dataset, consisting of questions posed by crowdworkers on a set of Wikipedia articles, where the answer to every question is a segment of text, or span, from the corresponding reading passage, or the question might be unanswerable.
+
+            New SQuAD2.0 combines the 100,000 questions in SQuAD1.1 with over 50,000 new, unanswerable questions written adversarially by crowdworkers to look similar to answerable ones. To do well on SQuAD2.0, systems must not only answer questions when possible, but also determine when no answer is supported by the paragraph and abstain from answering. SQuAD2.0 is a challenging natural language understanding task for existing models, and we release SQuAD2.0 to the community as the successor to SQuAD1.1. We are optimistic that this new dataset will encourage the development of reading comprehension systems that know what they don't know
+        </p>
+    </font>
+    <h1><a href="https://store.steampowered.com/">4.Assetto Corsa</a></h1>
+    <font size="4px">
+        <p>
+            Assetto Corsa is a simulation engine developed exclusively by Kunos Simulazioni and a new game that uses the engine. This is a next-generation DX11 racing simulation game built for the PC platform.
+
+        </p>
+    </font>
+    <h1><a href="https://superhotgame.com/">5.Super Hot</a></h1>
+
+    <font size="4px">
+        <p>
+            A Simple and Straight Game --"Superhot"            When testing reaction speed, tense and fast-paced first-person action and testing thinking, leisure and slow-paced turn strategy are two different types of games combined, that is, this SUPERHOT when you start to act, time will start to run.            You can think slowly about the next action, observe the surroundings, and use the elements. When you move, time is the normal flow, a fast-paced battle, and you are attacked once. Will die. A game, you can always act, play it as a test of reaction speed, a stimulating first-person action game; you can also think quietly before every move, consider the action after, with the most perfect way to kill every enemy.            Very interesting creativity, will be a perfect combination of fast and slow rhythm of the game with a full sense of attack, although the screen is very simple, but does not affect the fist to meat, bullet bursts and knife killing of the smooth not only pay attention to action oh, in fact, the plot is also very interesting after the clearance of the BGM listen well! Magic!            Creative full score, game mode is very interesting, can quickly fascinate people, but the content of the game is less, although you can try to use different ways to play, but the game will not be too long or tired, support developers, hope to launch a better game!            A word to sum up the game is: against the enemy and I will kill the non-rapid response simulation rapid response strategy first person action game... A word to sum up the feeling is: I am a good bull!            This time alone, creativity is worth seven points. This is really an innovative game worth supporting, and I'm looking forward to the sequel. 2.3 hours story mode customs clearance, this plot is the standard additions to the snake... After customs clearance, unlock the endless mode and challenge mode. Playfulness does not seem particularly high. It is estimated that within 30 hours, it depends on whether the official will add some content in the future.            Plus: The endless mode of the game is unexpectedly fun, which is the essence of the original ah! At first, the content of the endless mode is only to take a few steps in which direction, how to avoid the enemy's fire net, how to let the enemy hit his own people, how to attach himself to the enemy's rear. All these things need to be considered must be clearly in about three seconds, and then to solve a wave of more enemies than a wave, seize better weapons, and enter the next cycle.            After 40 kills, infinite mode has entered a strategy + action stage, because your weapons and time superpowers are not enough for your self-protection, always facing the choice of holding pistol or knife, terrain suitable for close combat or long-range shooting, battalion, gun calculation, the first person action shooting game can also play this step nobody. If the previous campaign and challenge mode can get 7 points, the endless mode can get at least 8.5 points.
+        </p>
+    </font>
+    </html>

@@ -1,0 +1,427 @@
+﻿@{
+    ViewData["Title"] = "Steam";
+}
+@{
+    ViewData["Title"] = "Home Page";
+}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Slide</title>
+
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        .clear {
+            *zoom: 1;
+        }
+
+            .clear:after {
+                visibility: none;
+                content: "";
+                display: block;
+                clear: both;
+                height: 0;
+            }
+
+        #wrap {
+            width: 1100px;
+            height: 600px;
+            margin: 0 auto;
+            position: relative;
+            background: pink;
+            overflow: hidden;
+        }
+
+        #inner {
+            width: 1000%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+            #inner img {
+                width: 10%;
+                height: 100%;
+                float: left;
+            }
+
+        .paganation {
+            width: 100%;
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+        }
+
+            .paganation span {
+                padding: 5px 8px;
+                background: #F2F2F2;
+                color: red;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            .paganation .selected {
+                background: red;
+                color: white;
+            }
+
+        .arrow {
+            position: absolute;
+            top: 0;
+            width: 30px;
+            height: 600px;
+            line-height: 600px;
+            text-align: center;
+            color: red;
+            cursor: pointer;
+        }
+
+        #right {
+            right: 0;
+        }
+
+        .arrow:hover {
+            background: rgba(0,0,0,0.5);
+        }
+        /* 下拉按钮样式 */
+        .dropbtn {
+            background-color: #000000;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 容器 <div> - 需要定位下拉内容 */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* 下拉内容 (默认隐藏) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        }
+
+            /* 下拉菜单的链接 */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                /* 鼠标移上去后修改下拉菜单链接颜色 */
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1
+                }
+
+        /* 在鼠标移上去后显示下拉菜单 */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 当下拉内容显示后修改下拉按钮的背景颜色 */
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrap">
+
+        <div id="inner" class="clear">
+
+            <img src="~/images/ads.jpg">
+
+            <img src="~/images/q.jpg">
+
+            <img src="~/images/ry.jpg">
+
+            <img src="~/images/r6.jpg" />
+
+            
+
+        </div>
+
+        <div class="paganation" id="paganation">
+
+            <span class="selected">1</span>
+
+            <span>2</span>
+
+            <span>3</span>
+
+            <span>4</span>
+
+           
+
+
+
+        </div>
+
+        <div id="left" class="arrow"><</div>
+
+        <div id="right" class="arrow">></div>
+
+    </div>
+
+</body>
+
+<script type="text/javascript">
+
+    var wrap = document.getElementById("wrap");
+
+    var inner = document.getElementById("inner");
+
+    var spanList = document.getElementById("paganation").getElementsByTagName("span");
+
+    var left = document.getElementById("left");
+
+    var right = document.getElementById("right");
+
+
+
+    var clickFlag = true;//设置左右切换标记位防止连续按
+
+    var time;
+
+    var index = 0;//记录每次滑动图片的下标
+
+    var Distance = wrap.offsetWidth;//获得展示区的宽度，即图片的宽度
+
+    function AutoGo() {
+
+        var start = inner.offsetLeft;//获得相对于父元素的left，这里就是对与wrap的left
+
+        var end = index * Distance * (-1);
+
+        var change = end - start;//通过这三个变量来控制图片向左向右，change的+—来控制左右移动
+
+
+
+        var timer;//用计时器为图片添加动态效果
+
+        var t = 0;
+
+        var maxT = 30;
+
+        clear();
+
+        if (index == spanList.length) {//index到最后一张图片时
+
+            spanList[0].className = "selected";
+
+        } else {
+
+            spanList[index].className = "selected";
+
+        }
+
+        clearInterval(timer);
+
+        timer = setInterval(function () {
+
+            t++;
+
+            if (t >= maxT) {
+
+                clearInterval(timer);
+
+                clickFlag = true;
+
+            }
+
+            inner.style.left = change / maxT * t + start + "px";
+
+            if (index == spanList.length && t >= maxT) {
+
+                inner.style.left = 0;
+
+                index = 0;
+
+                //当图片到最后一张时把它瞬间切换回第一张，由于都是同一张图片不会影响效果
+
+            }
+
+        }, 17);//每17毫秒让块移动change/maxT×t
+
+    }
+
+    function forward() {
+
+        index++;
+
+        if (index > spanList.length) {
+
+            index = 0;
+
+        }
+
+        AutoGo();
+
+    }
+
+    function backward() {
+
+        index--;
+
+        //当图片下标到第一张让它返回倒数第二张，倒数第一张和第一张是一样的
+
+        //left值要变到最后一张才不影响过渡效果
+
+        if (index < 0) {
+
+            index = spanList.length - 1;
+
+            inner.style.left = (index + 1) * Distance * (-1) + "px";
+
+        }
+
+        AutoGo();
+
+    }
+
+    time = setInterval(forward, 3000);
+
+    wrap.onmouseover = function () {
+
+        clearInterval(time);
+
+    }
+
+    wrap.onmouseout = function () {
+
+        time = setInterval(forward, 3000);
+
+    }
+
+    //遍历每个按钮让其切换到对应图片
+
+    for (var i = 0; i < spanList.length; i++) {
+
+        spanList[i].onclick = function () {
+
+            index = this.innerText - 1;
+
+            AutoGo();
+
+        }
+
+    }
+
+    left.onclick = function () {
+
+        if (clickFlag) {
+
+            backward();
+
+        }
+
+        clickFlag = false;
+
+    }
+
+    right.onclick = function () {
+
+        if (clickFlag) {
+
+            forward();
+
+        }
+
+        clickFlag = false;
+
+    }
+
+    function clear() {
+
+        for (var i = 0; i < spanList.length; i++) {
+
+            spanList[i].className = "";
+
+        }
+
+    }
+
+</script>
+
+</html>
+
+
+<font style="text-align:center">
+    <h1>
+        Uplay
+    </h1></font>
+    <font color="red" style="text-align:center"><p> * Click on the game name to jump to the official website to buy! *</p></font>
+    <h1><a href="https://uplay.ubisoft.com/">1.Assassin's Creed Odyssey</a></h1>
+    <font size="4px">
+        <p>
+            Assassin's Creed is an action game developed by ubisoft Quebec studios and distributed by ubisoft. It is the eighth major series in Assassin's Creed and a sequel to the 2017 game Assassin's Creed: origins.
+            1Set in 431 BC, four centuries before the events of assassin's creed: origins, the game tells the secret fictional history of the peloponnesian war between the ancient Greek city-states.Players play as a mercenary who can join the tirian league, led by Athens, or the peloponnesian league, led by Sparta.
+            The game was officially released on October 5, 2018, and is available on PC, PS4, Xbox One, nintendo Switch and other platforms. The nintendo Switch version will run in the way of cloud games.
+        <p>
+            </font>
+            <h1><a href="https://uplay.ubisoft.com/">2.The Divsion 2</a></h1>
+            <font size="4px">
+                <p>
+                    The overland blockade 2 was developed by Massive studio in collaboration with ubisoft annecy studio, RedStorm studio, Reflections studio, ubisoft Bucharest studio and ubisoft Shanghai studio.The game engine is the latest version of Snowdrop engine.The background moved to Washington, d.c., six months later in a generation.Available on March 15, 2019.
+                </p>
+                </font>
+                <h1><a href="https://uplay.ubisoft.com/">3.For Honor</a></h1>
+                <font size="4px">
+                    <font size="4px">
+                        <p>
+                            Game background
+                            Samurai camp
+                            History was not friendly to the samurai.They came from distant lands across the sea, bringing with them a story of the emperor and a home devoured by water and fire.Nearly a thousand years later, the nomads halted their wanderings and established themselves near the land the vikings had reclaimed and fought over with the knights.
+                            Over the past decade they have adapted to the marshy hills of mayr, thriving but still unable to compete with their neighbours.They must rely on higher martial arts, trickery and loyalty to their culture to survive, since they may be the last of their kind.
+                            The knight's camp
+                            Ashfield's knights were proud examples of power, sent into battle by armies of steel to soothe the restless earth.Having tasted freedom, they made ashfield their home.They believe that most of the ancient ruins scattered throughout the territory were built by the ancestors of the iron legion, the great empire.
+                            For centuries, the ashfield order was little more than petty warlords and rough bands of wandering knights.For the past decade they have been grouped under the same banner, the black stone army, led by apollyon.
+                            So far, the knights have managed to fend off the Viking and warrior onslaught on ashfield.Apollyon points out that the threat of war is imminent and tells the knights that joining her army is the only way to keep their home.
+                            Viking camp
+                            The vikings disappeared for centuries, fleeing their crumbling homes to unknown shores.The rest were conquered by the knights and assimilated into their culture.
+                            Large Numbers of vikings reappeared centuries ago.From distant lands across the ocean to their new home.There are many reasons for their return, but the main one is to reclaim their homeland in the north: wacenheim.Today, hundreds of Viking tribes live in relative peace on the tundra.To outsiders, however, they seem to have been in a perpetual state of civil war.[2]
+                            Character is introduced
+                            The editor
+                            Spirit of "glory wars have, virgin, knight, knight and wulin four camps, each factio
+                        </p>
+                    </font>
+                <h1><a href="https://uplay.ubisoft.com/https://uplay.ubisoft.com/">4.Rainbow 6</a></h1>
+                <font size="4px">
+                    <p>
+                        Game background
+                        Samurai camp
+                        History was not friendly to the samurai.They came from distant lands across the sea, bringing with them a story of the emperor and a home devoured by water and fire.Nearly a thousand years later, the nomads halted their wanderings and established themselves near the land the vikings had reclaimed and fought over with the knights.
+                        Over the past decade they have adapted to the marshy hills of mayr, thriving but still unable to compete with their neighbours.They must rely on higher martial arts, trickery and loyalty to their culture to survive, since they may be the last of their kind.
+                        The knight's camp
+                        Ashfield's knights were proud examples of power, sent into battle by armies of steel to soothe the restless earth.Having tasted freedom, they made ashfield their home.They believe that most of the ancient ruins scattered throughout the territory were built by the ancestors of the iron legion, the great empire.
+                        For centuries, the ashfield order was little more than petty warlords and rough bands of wandering knights.For the past decade they have been grouped under the same banner, the black stone army, led by apollyon.
+                        So far, the knights have managed to fend off the Viking and warrior onslaught on ashfield.Apollyon points out that the threat of war is imminent and tells the knights that joining her army is the only way to keep their home.
+                        Viking camp
+                        The vikings disappeared for centuries, fleeing their crumbling homes to unknown shores.The rest were conquered by the knights and assimilated into their culture.
+                        Large Numbers of vikings reappeared centuries ago.From distant lands across the ocean to their new home.There are many reasons for their return, but the main one is to reclaim their homeland in the north: wacenheim.Today, hundreds of Viking tribes live in relative peace on the tundra.To outsiders, however, they seem to have been in a perpetual state of civil war.[2]
+                        Character is introduced
+                        The editor
+                        Spirit of "glory wars have, virgin, knight, knight and wulin four camps, each factio
+                    </p>
+                    <font size="4px">
