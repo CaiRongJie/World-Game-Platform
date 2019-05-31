@@ -1,0 +1,15 @@
+                                                                                 Minutes 4                       
+We discussed the project to be done this week and decided on the direction.
+Tuesday
+We searched the Internet for the introduction of various functions of various game platforms such as Steam, Origin, WeGame and Uplay, and collected information.
+Wednesday
+We started working on the Steam project page and introduced the games Steam recommended.
+Thursday
+We improved the Steam web page in our project and recommended the game.
+Friday
+We used hyperlink to link the data in the database steam.cshtml to the steam column of HOME and realized the page jump.
+We had trouble with hyperlinks, but we read a lot of material and the problem was solved
+Saturday
+We plan to add multiple platforms in the project, which will be implemented in HOME. Platforms of Origin, WeGame and Uplay will be added in the project bar.
+Sunday
+We will search the Internet for information related to Origin, WeGame and Uplay platforms and use them all.
