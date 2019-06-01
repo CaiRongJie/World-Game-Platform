@@ -1,0 +1,8 @@
+                                                                  Assignment # 6
+Team name: world-game-platform
+Name of GitHub project: world-game-platform
+GitHub user name of GitHub repository: CaiRongJie
+Product owner: CaiRongJie
+Scrum Master: YuanJianWei
+Making the repository URL:https://github.com/CaiRongJie/World-Game-Platform.git
+Next week we will upload our modified game database to complete the data upload in our project
