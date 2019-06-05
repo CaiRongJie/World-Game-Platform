@@ -1,1 +1,2 @@
-We uploaded the database and added the database of game data to our project
+The search key we made when we finished the project made the jump page and so on.But we had a big problem that we couldn't upload the database because of the project name,
+This is the problem we cannot solve.
